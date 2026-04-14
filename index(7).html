@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Fee Caro - Liberation et Lumiere</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#c9a96e;--gold-light:#e8d5b0;--gold-pale:#f7f0e6;--deep:#0e0e2e;--plum:#1e1b4b;--rose:#b07080;--rose-pale:#f5eaed;--text:#3a2a2a;--text-light:#7a6a6a;--white:#fdfaf6;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden;}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,28,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,169,110,0.15);padding:0;display:flex;align-items:stretch;width:100%;}
+.navbar-top{width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:72px;box-sizing:border-box;}
+.navbar-links{display:flex;align-items:center;gap:24px;list-style:none;padding:0;margin:0;flex:1;}
+.navbar-links a{font-family:'Jost',sans-serif;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(253,250,246,0.6);text-decoration:none;transition:color 0.3s ease;}
+.navbar-links a:hover{color:var(--gold);}
+.navbar-cta{background:linear-gradient(135deg,var(--gold),#a8834a);color:var(--deep)!important;padding:8px 18px;border-radius:50px;font-weight:500!important;}
+.navbar-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.navbar-burger span{display:block;width:22px;height:1.5px;background:var(--gold);}
+@media(max-width:768px){.navbar-links{display:none;position:absolute;top:72px;left:0;right:0;background:rgba(10,10,28,0.98);flex-direction:column;padding:24px 32px;gap:16px;border-bottom:1px solid rgba(201,169,110,0.15);}.navbar-links.open{display:flex;}.navbar-burger{display:flex;}}
+.hero{min-height:100vh;background:#090920;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px 60px;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 40%,rgba(99,88,210,0.28) 0%,transparent 65%),radial-gradient(ellipse 50% 50% at 20% 80%,rgba(120,100,240,0.15) 0%,transparent 60%);pointer-events:none;}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(80px);animation:float 8s ease-in-out infinite;}
+.hero-orb-1{width:400px;height:400px;background:radial-gradient(circle,rgba(110,90,255,0.2),transparent);top:-100px;left:-100px;}
+.hero-orb-2{width:300px;height:300px;background:radial-gradient(circle,rgba(90,70,220,0.22),transparent);bottom:-50px;right:-50px;animation-delay:-4s;}
+@keyframes float{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-30px) scale(1.05);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+@keyframes hex-glow{0%,100%{filter:drop-shadow(0 0 8px rgba(201,169,110,0.4));}50%{filter:drop-shadow(0 0 20px rgba(201,169,110,0.8));}}
+@keyframes scrollDown{0%{transform:scaleY(0);transform-origin:top;opacity:1;}50%{transform:scaleY(1);transform-origin:top;opacity:1;}51%{transform:scaleY(1);transform-origin:bottom;opacity:1;}100%{transform:scaleY(0);transform-origin:bottom;opacity:0;}}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,4rem);font-weight:300;color:var(--white);line-height:1.1;margin-bottom:16px;position:relative;z-index:2;animation:fadeUp 1s 0.2s ease both;}
+.hero-title em{font-style:italic;color:var(--gold-light);}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,2.2vw,1.5rem);font-weight:300;font-style:italic;color:rgba(253,250,246,0.7);margin-bottom:48px;max-width:620px;line-height:1.6;position:relative;z-index:2;animation:fadeUp 1s 0.3s ease both;}
+.hero-divider{width:60px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:0 auto 48px;position:relative;z-index:2;}
+.hero-promise{font-size:0.8rem;color:rgba(253,250,246,0.55);letter-spacing:0.08em;margin-bottom:56px;position:relative;z-index:2;animation:fadeUp 1s 0.4s ease both;line-height:1.8;}
+.btn-primary{display:inline-block;background:linear-gradient(135deg,var(--gold) 0%,#a8834a 100%);color:var(--deep);font-family:'Jost',sans-serif;font-size:0.8rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;padding:18px 48px;border-radius:50px;text-decoration:none;position:relative;z-index:2;transition:transform 0.3s ease,box-shadow 0.3s ease;box-shadow:0 8px 40px rgba(201,169,110,0.3);animation:fadeUp 1s 0.5s ease both;}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 60px rgba(201,169,110,0.4);}
+.hero-price-note{font-size:0.75rem;color:rgba(253,250,246,0.4);margin-top:20px;position:relative;z-index:2;letter-spacing:0.05em;}
+.scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0.4;}
+.scroll-hint span{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollDown 2s ease-in-out infinite;}
+section{padding:100px 24px;}
+.container{max-width:860px;margin:0 auto;}
+.container-wide{max-width:1100px;margin:0 auto;}
+.section-label{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:20px;text-align:center;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:300;line-height:1.2;text-align:center;color:var(--plum);margin-bottom:24px;}
+.section-title em{font-style:italic;color:var(--rose);}
+.section-body{font-size:1rem;line-height:1.9;color:var(--text-light);text-align:center;max-width:620px;margin:0 auto;}
+.thin-divider{width:40px;height:1px;background:var(--gold);margin:32px auto;}
+.pain-section{background:var(--rose-pale);position:relative;overflow:hidden;}
+.pain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:56px;}
+.pain-card{background:white;border-radius:16px;padding:36px 28px;border-left:3px solid var(--rose);transition:transform 0.3s ease,box-shadow 0.3s ease;}
+.pain-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(176,112,128,0.15);}
+.pain-icon{font-size:1.6rem;margin-bottom:16px;color:var(--rose);opacity:0.75;display:flex;align-items:center;gap:10px;}
+.pain-label{font-family:'Jost',sans-serif;font-size:0.65rem;font-style:normal;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose);opacity:0.85;font-weight:500;}
+.pain-card p{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--text);line-height:1.6;}
+.method-section{background:radial-gradient(ellipse 80% 60% at 50% 50%,#1c1654 0%,#0c0c22 100%);position:relative;overflow:hidden;}
+.method-pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;margin-top:64px;}
+.pillar{background:rgba(255,255,255,0.04);padding:48px 28px;text-align:center;border:1px solid rgba(130,110,255,0.2);transition:background 0.3s ease;position:relative;overflow:hidden;}
+.pillar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform 0.4s ease;}
+.pillar:hover{background:rgba(255,255,255,0.07);}
+.pillar:hover::after{transform:scaleX(1);}
+.pillar-symbol{font-size:2rem;margin-bottom:20px;display:block;}
+.pillar h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:400;color:var(--gold-light);margin-bottom:12px;}
+.pillar p{font-size:0.85rem;color:rgba(253,250,246,0.5);line-height:1.7;}
+.transform-section{background:var(--white);}
+.transform-list{margin-top:56px;display:flex;flex-direction:column;gap:0;max-width:720px;margin-left:auto;margin-right:auto;}
+.transform-item{display:flex;align-items:flex-start;gap:24px;padding:32px 0;border-bottom:1px solid rgba(201,169,110,0.2);transition:padding-left 0.3s ease;}
+.transform-item:last-child{border-bottom:none;}
+.transform-item:hover{padding-left:8px;}
+.transform-num{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--gold);opacity:0.5;min-width:50px;line-height:1;margin-top:4px;}
+.transform-text h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:400;color:var(--plum);margin-bottom:8px;}
+.transform-text p{font-size:0.9rem;color:var(--text-light);line-height:1.8;}
+.process-section{background:radial-gradient(ellipse 90% 70% at 50% 30%,#201970 0%,#0b0b20 100%);position:relative;overflow:hidden;}
+.process-steps{margin-top:64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px;}
+.step{text-align:center;padding:40px 24px;border:1px solid rgba(201,169,110,0.2);border-radius:20px;background:rgba(255,255,255,0.03);}
+.step-moon{font-size:2.2rem;display:block;margin-bottom:16px;}
+.step-period{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px;}
+.step h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:var(--gold-light);margin-bottom:12px;}
+.step p{font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.7;}
+.about-section{background:linear-gradient(135deg,#fdf0f3 0%,#f9e4ea 100%);}
+.about-inner{display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:center;}
+@media(max-width:680px){.about-inner{grid-template-columns:1fr;gap:40px;}}
+.about-bio{font-size:0.95rem;line-height:1.9;color:var(--text-light);margin-top:24px;}
+.about-bio strong{color:var(--plum);font-weight:500;}
+.testimonials-section{background:var(--white);}
+.testimonials-grid{margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;}
+.testimonial-card{background:var(--rose-pale);border-radius:20px;padding:40px 32px;position:relative;}
+.testimonial-card::before{content:'C';font-family:'Cormorant Garamond',serif;font-size:6rem;color:var(--rose);opacity:0.2;position:absolute;top:10px;left:20px;line-height:1;}
+.testimonial-body{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:24px;position:relative;z-index:1;}
+.testimonial-name{font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--rose);font-weight:500;}
+.testimonial-tag{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--rose);font-weight:500;margin-bottom:20px;display:block;}
+.testimonial-source{font-size:0.7rem;color:var(--text-light);opacity:0.6;margin-top:10px;font-style:italic;}
+.testimonial-source a{color:var(--gold);text-decoration:none;}
+.offer-section{background:radial-gradient(ellipse 80% 60% at 50% 40%,#181660 0%,#0b0b1e 100%);position:relative;overflow:hidden;}
+.offer-card{background:rgba(255,255,255,0.04);border:1px solid rgba(201,169,110,0.3);border-radius:28px;padding:64px 56px;max-width:680px;margin:56px auto 0;text-align:center;position:relative;overflow:hidden;}
+.offer-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,var(--gold),transparent);}
+.offer-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;color:var(--gold-light);margin-bottom:32px;line-height:1.3;}
+.offer-includes{list-style:none;margin-bottom:40px;text-align:left;display:inline-block;}
+.offer-includes li{font-size:0.9rem;color:rgba(253,250,246,0.7);padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:14px;}
+.offer-includes li:last-child{border-bottom:none;}
+.offer-includes li::before{content:'✦';color:var(--gold);font-size:0.6rem;flex-shrink:0;}
+.offer-price{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6vw,5rem);font-weight:300;color:var(--gold);line-height:1;margin-bottom:8px;}
+.offer-price-note{font-size:0.8rem;color:rgba(253,250,246,0.4);margin-bottom:40px;letter-spacing:0.08em;}
+.offer-guarantee{margin-top:28px;font-size:0.75rem;color:rgba(253,250,246,0.35);letter-spacing:0.08em;}
+.faq-section{background:var(--gold-pale);}
+.faq-list{margin-top:56px;max-width:680px;margin-left:auto;margin-right:auto;}
+.faq-item{border-bottom:1px solid rgba(201,169,110,0.3);padding:28px 0;}
+.faq-q{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--plum);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:16px;}
+.faq-q::after{content:'+';font-size:1.5rem;color:var(--gold);font-weight:300;flex-shrink:0;}
+.faq-a{font-size:0.9rem;color:var(--text-light);line-height:1.8;}
+.cta-section{background:radial-gradient(ellipse 100% 80% at 50% 50%,#1e1b5e 0%,#090918 100%);text-align:center;padding:120px 24px;position:relative;overflow:hidden;}
+.stars-deco{color:var(--gold);font-size:1rem;letter-spacing:4px;margin-bottom:28px;display:block;position:relative;z-index:2;}
+.petits-prix-section{background:linear-gradient(160deg,#1a0e2e 0%,#0e0e2e 100%);padding:100px 24px;position:relative;overflow:hidden;}
+.offre-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:24px;}
+.offre-card-petite{background:rgba(255,255,255,0.04);border-radius:20px;padding:32px 24px;text-align:center;position:relative;overflow:hidden;transition:transform 0.3s ease;}
+.offre-card-petite:hover{transform:translateY(-4px);}
+.offre-card-petite h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:rgba(232,213,200,1);margin-bottom:12px;}
+.offre-card-petite p{font-size:0.82rem;color:rgba(253,250,246,0.55);line-height:1.7;margin-bottom:20px;}
+.offre-prix{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;line-height:1;margin-bottom:20px;}
+.btn-rose{display:inline-block;background:linear-gradient(135deg,#b07080 0%,#8a4a60 100%);color:white;font-family:'Jost',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;padding:11px 24px;border-radius:50px;text-decoration:none;transition:transform 0.3s ease;}
+.btn-rose:hover{transform:translateY(-2px);}
+.btn-gold-sm{display:inline-block;background:linear-gradient(135deg,var(--gold),#a8834a);color:var(--deep);font-family:'Jost',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;padding:11px 24px;border-radius:50px;text-decoration:none;transition:transform 0.3s ease;}
+.btn-gold-sm:hover{transform:translateY(-2px);}
+.btn-indigo{display:inline-block;background:rgba(130,110,210,0.25);border:1px solid rgba(130,110,210,0.5);color:rgba(180,164,236,1);font-family:'Jost',sans-serif;font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;padding:11px 24px;border-radius:50px;text-decoration:none;}
+.revance-section{background:linear-gradient(160deg,#0e0e2e 0%,#1a1040 100%);padding:100px 24px;position:relative;overflow:hidden;}
+.revance-card{background:rgba(255,255,255,0.04);border:1px solid rgba(176,112,128,0.3);border-radius:28px;padding:56px 48px;max-width:700px;margin:56px auto 0;text-align:center;position:relative;overflow:hidden;}
+.revance-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,rgba(176,112,128,0.8),transparent);}
+.revance-includes{list-style:none;margin-bottom:40px;text-align:left;display:inline-block;}
+.revance-includes li{font-size:0.9rem;color:rgba(253,250,246,0.7);padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:14px;}
+.revance-includes li:last-child{border-bottom:none;}
+.revance-includes li::before{content:'✦';color:rgba(176,112,128,0.9);font-size:0.6rem;flex-shrink:0;}
+.revance-price{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6vw,4.5rem);font-weight:300;color:rgba(200,144,154,1);line-height:1;margin-bottom:8px;}
+footer{background:#090920;text-align:center;padding:40px 24px;font-size:0.75rem;color:rgba(253,250,246,0.25);letter-spacing:0.1em;}
+footer span{color:var(--gold);opacity:0.6;}
+@media(max-width:600px){section{padding:72px 20px;}.offer-card{padding:40px 24px;}.revance-card{padding:40px 24px;}}
+</style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar-top">
+  <div class="navbar-top">
+    <ul class="navbar-links" id="navbar-links">
+      <li><a href="#accompagnement">Accompagnement 3 mois</a></li>
+      <li><a href="#petits-prix">Offres</a></li>
+      <li><a href="#revance">Rev-ance de Lumiere</a></li>
+      <li><a href="#bijoux">Bijoux & Pierres</a></li>
+      <li><a href="mailto:lafeecaro@gmail.com" class="navbar-cta">Contact</a></li>
+    </ul>
+    <button class="navbar-burger" onclick="document.getElementById('navbar-links').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <div style="position:relative;z-index:2;margin-bottom:32px;animation:fadeUp 1s 0.15s ease both;text-align:center;">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(0.75rem,1.4vw,0.9rem);font-style:italic;color:rgba(232,213,160,1);letter-spacing:0.1em;line-height:2;text-align:center;margin:0;">
+      Medium de l'ame · Canal de prieres de liberation<br>
+      <span style="color:rgba(201,169,110,0.5);">✦</span><br>
+      Missionnaire de joie et de foi<br>
+      <span style="color:rgba(201,169,110,0.5);">✦</span><br>
+      Praticienne certifiee Methode Vibraction®
+    </p>
+  </div>
+
+  <div style="position:relative;z-index:2;margin-bottom:32px;text-align:center;">
+    <div style="display:inline-block;border:1px solid rgba(201,169,110,0.6);border-radius:16px;padding:18px 36px;background:rgba(201,169,110,0.08);animation:hex-glow 3s ease-in-out infinite;">
+      <svg width="440" height="130" viewBox="0 0 640 180" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;">
+        <defs>
+          <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#a090d8"/>
+            <stop offset="50%" stop-color="#f5eaed"/>
+            <stop offset="100%" stop-color="#c9a96e"/>
+          </linearGradient>
+        </defs>
+        <text x="320" y="90" text-anchor="middle" font-family="Georgia,serif" font-size="76" font-style="italic" font-weight="100" fill="url(#lg1)" opacity="0.07">Liberance</text>
+        <text x="320" y="90" text-anchor="middle" font-family="Georgia,serif" font-size="76" font-style="italic" font-weight="100" fill="none" stroke="url(#lg1)" stroke-width="1.2" opacity="0.95">Liberance</text>
+        <text x="320" y="138" text-anchor="middle" font-family="Georgia,serif" font-size="13" font-style="italic" fill="rgba(255,255,255,0.9)" letter-spacing="4">ton accompagnement pendant 3 mois</text>
+      </svg>
+    </div>
+  </div>
+
+  <h1 class="hero-title">Libere tes chaines.<br>Retrouve ton <em>Etre Originel.</em></h1>
+  <div class="hero-divider"></div>
+  <p class="hero-sub">J'accompagne les ames sensibles a se liberer des liens invisibles qui les enchainent — liens toxiques, contrats d'ame, blocages profonds — pour retrouver leur Etre Originel.</p>
+  <p class="hero-promise">Prieres de liberation · Rev-ance · Methode Vibraction®<br>Accompagnement individuel · 100% en ligne · Resultats durables</p>
+  <a href="#accompagnement" class="btn-primary">Je veux me liberer — 1 589 EUR</a>
+  <p class="hero-price-note">Accompagnement 3 mois · Paiement securise</p>
+  <div class="scroll-hint">
+    <span>Decouvrir</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<section class="pain-section">
+  <div class="container">
+    <span class="section-label">Tu te reconnais ?</span>
+    <h2 class="section-title">Ces douleurs qui t'habitent <em>depuis trop longtemps</em></h2>
+    <p class="section-body">Tu le ressens au plus profond de toi : quelque chose te retient. Quelque chose que tu ne sais pas toujours nommer…</p>
+    <div class="pain-grid">
+      <div class="pain-card"><span class="pain-icon">⛓️ <span class="pain-label">Liens & Attachements</span></span><p>Tu portes des liens toxiques, des attachements que tu n'arrives pas a couper, des charges energetiques qui ne t'appartiennent pas.</p></div>
+      <div class="pain-card"><span class="pain-icon">⟳ <span class="pain-label">Repetition</span></span><p>Tu as l'impression de repeter toujours les memes schemas, en amour, au travail, en famille…</p></div>
+      <div class="pain-card"><span class="pain-icon">☽ <span class="pain-label">Emotions</span></span><p>Tu portes des emotions lourdes — anxiete, tristesse, colere — qui debordent malgre toi.</p></div>
+      <div class="pain-card"><span class="pain-icon">⊹ <span class="pain-label">Deconnexion</span></span><p>Tu te sens coupee de toi-meme, de tes desirs, de ton intuition, de ta lumiere.</p></div>
+      <div class="pain-card"><span class="pain-icon">✦ <span class="pain-label">Blessures</span></span><p>Tu portes des blessures profondes — familiales, transgenererationnelles — qui freinent ton elan de vie.</p></div>
+      <div class="pain-card"><span class="pain-icon">❋ <span class="pain-label">Potentiel</span></span><p>Tu sais que tu es faite pour plus, mais quelque chose — invisible — te retient.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="method-section">
+  <div class="container">
+    <span class="section-label" style="color:var(--gold);">La Methode Vibraction®</span>
+    <h2 class="section-title" style="color:var(--gold-light);">Une approche qui agit<br>sur tous tes plans d'etre</h2>
+    <div class="thin-divider"></div>
+    <p class="section-body" style="color:rgba(253,250,246,0.65);">La Methode Vibraction® est une voie de liberation complete, creee par Helene Pavot. Elle part du principe que les <strong style="color:var(--gold-light);">sensations subtiles dans le corps</strong> sont la cle de toute transformation durable.</p>
+  </div>
+  <div class="container-wide" style="margin-top:64px;">
+    <div class="method-pillars">
+      <div class="pillar"><span class="pillar-symbol">🌿</span><h3>Plan Physique</h3><p>Liberation des tensions, douleurs et memoires inscrites dans le corps.</p></div>
+      <div class="pillar"><span class="pillar-symbol">🌊</span><h3>Plan Emotionnel</h3><p>Accueillir et transformer les emotions bloquees sans les subir.</p></div>
+      <div class="pillar"><span class="pillar-symbol">☁️</span><h3>Plan Mental</h3><p>Stopper les pensees repetitives et les croyances limitantes.</p></div>
+      <div class="pillar"><span class="pillar-symbol">✨</span><h3>Plan Spirituel</h3><p>Reconnexion a ton Etre Originel et a ton potentiel profond.</p></div>
+      <div class="pillar"><span class="pillar-symbol">🌳</span><h3>Liens & Karma</h3><p>Liberation des blocages familiaux, karmiques et transgenererationnels.</p></div>
+    </div>
+  </div>
+  <div class="container" style="margin-top:56px;text-align:center;">
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;color:rgba(253,250,246,0.6);max-width:520px;margin:0 auto;line-height:1.7;">"Plus qu'une methode, une nouvelle hygiene de vie."</p>
+  </div>
+</section>
+
+<section class="transform-section">
+  <div class="container">
+    <span class="section-label">Ce qui va changer en toi</span>
+    <h2 class="section-title">Les liberations que tu <em>vivras</em></h2>
+    <p class="section-body">En 3 mois, tu traverses une transformation en profondeur — pas un simple mieux-etre, une veritable renaissance.</p>
+    <div class="transform-list">
+      <div class="transform-item"><div class="transform-num">01</div><div class="transform-text"><h3>Tu arretes de subir tes emotions</h3><p>Plus de crises d'anxiete incontrôlables. Tu deviens maitre de ton monde interieur.</p></div></div>
+      <div class="transform-item"><div class="transform-num">02</div><div class="transform-text"><h3>Les schemas repetitifs se brisent</h3><p>Ces situations qui revenaient inlassablement — en amour, au travail, en famille — se dissolvent a la racine.</p></div></div>
+      <div class="transform-item"><div class="transform-num">03</div><div class="transform-text"><h3>Ton corps retrouve sa legerete</h3><p>Les tensions physiques, les douleurs inexpliquees et la fatigue chronique liees aux blocages s'allegent.</p></div></div>
+      <div class="transform-item"><div class="transform-num">04</div><div class="transform-text"><h3>Tu te reconnectes a toi-meme</h3><p>Confiance en soi retrouvee, intuition reveilee, alignement avec tes veritables desirs.</p></div></div>
+      <div class="transform-item"><div class="transform-num">05</div><div class="transform-text"><h3>Tu deviens autonome pour toujours</h3><p>La Methode Vibraction® t'appartient. Tu as les cles pour te liberer seule, a vie.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="process-section">
+  <div class="container">
+    <span class="section-label">Le deroulement de l'accompagnement</span>
+    <h2 class="section-title" style="color:var(--white);">3 mois pour te <em style="color:var(--gold-light);">transformer</em></h2>
+    <p class="section-body" style="color:rgba(255,255,255,0.6);">Un chemin structure, progressif et profondement personnalise — a ton rythme, depuis chez toi.</p>
+    <div class="process-steps">
+      <div class="step"><span class="step-moon">🌑</span><span class="step-period">Mois 1 · Semaines 1–4</span><h3>Prendre conscience</h3><p>Decouverte de la methode, identification de tes blocages prioritaires. Tes premieres liberations commencent des la premiere seance.</p></div>
+      <div class="step"><span class="step-moon">🌓</span><span class="step-period">Mois 2 · Semaines 5–8</span><h3>Aller en profondeur</h3><p>Liberation des memoires profondes — emotionnelles, familiales, karmiques. Le changement devient visible dans ta vie quotidienne.</p></div>
+      <div class="step"><span class="step-moon">🌕</span><span class="step-period">Mois 3 · Semaines 9–12</span><h3>S'ancrer dans la liberte</h3><p>Integration de la methode dans ton quotidien. Tu es autonome, rayonnante et prete a manifester ta meilleure vie.</p></div>
+    </div>
+    <div style="margin-top:56px;text-align:center;"><p style="font-size:0.85rem;color:rgba(253,250,246,0.45);letter-spacing:0.08em;">1 seance de 1h par semaine · En visio · Sans contrainte geographique</p></div>
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="container">
+    <div class="about-inner">
+      <div style="text-align:center;">
+        <div style="width:220px;height:220px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--rose));display:flex;align-items:center;justify-content:center;font-size:5rem;margin:0 auto;box-shadow:0 20px 60px rgba(201,169,110,0.3);">🧚</div>
+      </div>
+      <div>
+        <span class="section-label" style="text-align:left;color:#b07080;">Qui suis-je ?</span>
+        <h2 class="section-title" style="text-align:left;">Bonjour, je suis <em>La Fee Caro</em></h2>
+        <p class="about-bio">
+          Je suis praticienne certifiee de la <strong>Methode Vibraction®</strong>, creee par Helene Pavot — une methode qui resonne profondement avec qui je suis et ce que je porte comme mission de vie.<br><br>
+          Je suis egalement un <strong>canal de lumiere divine</strong> : je recois en guidance des <strong>prieres de liberation</strong> — des delivrances — pour liberer les liens toxiques, les contrats d'ame, les charges qui ne t'appartiennent pas. Je les transmets en audio, dans ma voix, et a l'ecrit — assez belles pour etre encadrees et relues chaque jour.<br><br>
+          Je cree aussi des <strong>Rev-ances</strong> — des dessins uniques recus en guidance divine, ou formes, symboles et mots se tissent specialement pour toi, pour reveler ce que ton ame porte et vers quoi elle s'elance.<br><br>
+          <strong>Medium · Missionnaire de joie et de foi</strong>, passionnee par les pierres naturelles de bien-etre, je t'offre bien plus qu'un accompagnement : une rencontre avec ta lumiere la plus profonde.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials-section">
+  <div class="container">
+    <span class="section-label">Elles ont ose se liberer</span>
+    <h2 class="section-title">Ce qu'elles <em>vivent</em> apres l'accompagnement</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-tag">🧠 Blocages psycho-emotionnels</div>
+        <p class="testimonial-body">Apres plusieurs traitements et des psychotherapies sans veritable amelioration, j'ai decouvert la methode. Semaine apres semaine, j'ai pu liberer mes cauchemars, un traumatisme d'enfance, ma peur de sortir en voiture… Je me sens de mieux en mieux chaque semaine.</p>
+        <div class="testimonial-name">Lucas · 29 novembre 2019</div>
+        <div class="testimonial-source">Source : <a href="https://www.methodevibraction.com/temoignages" target="_blank">methodevibraction.com</a></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-tag">💫 Douleurs physiques & emotions</div>
+        <p class="testimonial-body">Plus je me liberais emotionnellement, plus je liberais mes maux physiques qui ont pratiquement disparu : importants maux de dos, de poignets, de genoux et d'abdomen. Ce fut le declice d'une nouvelle vie pleine de nouveautes et d'aventures.</p>
+        <div class="testimonial-name">Marie-Pierre · 2 fevrier 2020</div>
+        <div class="testimonial-source">Source : <a href="https://www.methodevibraction.com/temoignages" target="_blank">methodevibraction.com</a></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-tag">🌿 Parentalite & reconnexion</div>
+        <p class="testimonial-body">Ce travail interieur m'a permis de me liberer de tous mes blocages, pour enfin laisser resurgir tout l'amour et l'attention que j'ai pour mes enfants. Je recommande cette formation a tout parent qui se sent demuni dans sa parentalite.</p>
+        <div class="testimonial-name">Cinthia, Ingenieure</div>
+        <div class="testimonial-source">Source : <a href="https://www.methodevibraction.com/temoignages" target="_blank">methodevibraction.com</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="accompagnement" class="offer-section">
+  <div class="container">
+    <span class="section-label" style="color:var(--gold);">L'Accompagnement</span>
+    <h2 class="section-title" style="color:var(--gold-light);">Tout ce qui est inclus<br>dans ta <em style="color:rgba(200,144,154,1);">transformation</em></h2>
+    <div class="offer-card">
+      <h3 class="offer-title">Accompagnement Vibraction®<br>3 mois — 100% individuel</h3>
+      <ul class="offer-includes">
+        <li>12 seances individuelles d'1h en visio (1 par semaine)</li>
+        <li>Accompagnement personnalise a ton rythme et tes blocages</li>
+        <li>Apprentissage de la Methode Vibraction® utilisable a vie</li>
+        <li>Liberation des blocages emotionnels, mentaux et spirituels</li>
+        <li>Liberation des memoires familiales et transgenererationnelles</li>
+        <li>Suivi et soutien entre les seances</li>
+        <li>Acces aux ressources pedagogiques de la methode</li>
+      </ul>
+      <div class="offer-price">1 589 EUR</div>
+      <p class="offer-price-note">TTC · Paiement securise en ligne</p>
+      <a href="https://www.paypal.com/ncp/payment/E27FCWL7UH864" class="btn-primary" style="animation:none;">Je commence ma liberation</a>
+      <p class="offer-guarantee">Paiement en plusieurs fois disponible sur demande</p>
+      <p style="margin-top:16px;font-size:0.78rem;color:rgba(253,250,246,0.35);">Une question ? <a href="mailto:lafeecaro@gmail.com" style="color:var(--gold);text-decoration:none;">lafeecaro@gmail.com</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div class="container">
+    <span class="section-label">Tes questions</span>
+    <h2 class="section-title">Ce que tu te <em>demandes</em> peut-etre</h2>
+    <div class="faq-list">
+      <div class="faq-item"><div class="faq-q">En quoi consiste la Methode Vibraction® ?</div><div class="faq-a">La Methode Vibraction® s'apparente a une "reeducation energetique". A travers une reconnexion aux differents corps (physique, mental, emotionnel et spirituel), elle permet de prendre conscience de ses blocages, de remettre en mouvement les vibrations associees pour les liberer definitivement, et de se reconnecter a sa veritable nature.</div></div>
+      <div class="faq-item"><div class="faq-q">Comment se passe un accompagnement sur 3 mois ?</div><div class="faq-a">Les accompagnements se deroulent sur 3 mois car il faut 6 a 8 semaines pour mettre en place de nouvelles habitudes au quotidien — le dernier mois est celui de la consolidation. Tu feras l'experience des liberations des la premiere seance. Chaque accompagnement est 100% personnalise.</div></div>
+      <div class="faq-item"><div class="faq-q">Y a-t-il des contre-indications ?</div><div class="faq-a">La Methode Vibraction® n'a demontre aucune contre-indication. Elle ne se substitue pas a un traitement medical mais peut y etre complementaire.</div></div>
+      <div class="faq-item"><div class="faq-q">Faut-il avoir une experience en developpement personnel ?</div><div class="faq-a">Non, aucune experience prealable n'est necessaire. La Methode Vibraction® est accessible a toutes les personnes pretes a s'engager dans leur transformation.</div></div>
+      <div class="faq-item"><div class="faq-q">Est-ce que je pourrai continuer seule apres les 3 mois ?</div><div class="faq-a">Oui, c'est meme l'objectif ! La Methode Vibraction® te donne les cles pour te liberer toi-meme, a tout moment de ta vie — sans dependre d'aucun therapeute.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container" style="position:relative;z-index:2;">
+    <span class="stars-deco">✦ ✦ ✦</span>
+    <h2 class="section-title" style="color:var(--white);">Tu es prete a te <em style="color:var(--gold-light);">liberer</em> ?</h2>
+    <div class="thin-divider"></div>
+    <p class="section-body" style="color:rgba(255,255,255,0.6);margin-bottom:48px;">Il y a juste ce moment — ici et maintenant — ou quelque chose en toi sait que c'est le bon moment.</p>
+    <a href="https://www.paypal.com/ncp/payment/E27FCWL7UH864" class="btn-primary" style="animation:none;">Oui, je me libere — 1 589 EUR</a>
+    <p style="font-size:0.75rem;color:rgba(253,250,246,0.4);margin-top:20px;">12 seances · 3 mois · 100% en ligne</p>
+  </div>
+</section>
+
+<section id="petits-prix" class="petits-prix-section">
+  <div style="max-width:1000px;margin:0 auto;">
+    <span style="font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);display:block;text-align:center;margin-bottom:20px;">Offres accessibles</span>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:300;color:var(--gold-light);text-align:center;margin-bottom:16px;">Des portes d'entree <em style="color:rgba(200,144,154,1);font-style:italic;">vers la lumiere</em></h2>
+    <div style="width:40px;height:1px;background:var(--gold);margin:0 auto 56px;opacity:0.5;"></div>
+
+    <div class="offre-grid">
+
+      <div class="offre-card-petite" style="border:1px solid rgba(160,144,216,0.3);">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,rgba(160,144,216,0.8),transparent);"></div>
+        <span style="font-size:1.6rem;display:block;margin-bottom:14px;">🙏</span>
+        <h3>Prieres de Liberation</h3>
+        <p>Argent · Amour · Foi · Confiance · Peur<br>Des prieres recues en guidance divine sur un theme precis. Audio 🎙️ + ecrit a encadrer ✍️</p>
+        <div class="offre-prix" style="color:rgba(150,130,220,1);">22 EUR</div>
+        <a href="https://www.paypal.com/ncp/payment/2PKFYAZPCGZQ8" class="btn-indigo">Commander ✦</a>
+      </div>
+
+      <div class="offre-card-petite" style="border:1px solid rgba(201,169,110,0.3);">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,rgba(201,169,110,0.8),transparent);"></div>
+        <span style="font-size:1.6rem;display:block;margin-bottom:14px;">🎨</span>
+        <h3>Ta Rev-ance</h3>
+        <p>Un dessin A4 unique recu en guidance divine pour toi — formes, symboles et mots tisses pour reveler ce que ton ame porte. A encadrer, a regarder chaque jour.</p>
+        <div class="offre-prix" style="color:var(--gold);">44 EUR</div>
+        <a href="https://www.paypal.com/ncp/payment/ZS82SGSSQK4CC" class="btn-gold-sm">Commander ✦</a>
+      </div>
+
+      <div class="offre-card-petite" style="border:1px solid rgba(200,144,154,0.3);">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,rgba(200,144,154,0.8),transparent);"></div>
+        <span style="font-size:1.6rem;display:block;margin-bottom:14px;">✨</span>
+        <h3>Priere de Delivrance personnalisee</h3>
+        <p>Une priere recue en guidance uniquement pour toi — liens toxiques, contrats d'ame, charges qui ne t'appartiennent pas. Pour liberer, alleger et laisser entrer la lumiere. Audio 🎙️ + ecrit encadrable ✍️</p>
+        <div class="offre-prix" style="color:rgba(200,144,154,1);">66 EUR</div>
+        <a href="https://www.paypal.com/ncp/payment/4YE42KYEZ2K66" class="btn-rose">Commander ✦</a>
+      </div>
+
+      <div class="offre-card-petite" style="border:1px solid rgba(232,213,160,0.5);box-shadow:0 0 30px rgba(201,169,110,0.1);">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,rgba(232,213,160,0.9),transparent);"></div>
+        <span style="font-size:1.6rem;display:block;margin-bottom:14px;">🌟</span>
+        <h3 style="color:rgba(232,213,200,1);">Rev-ance de Lumiere</h3>
+        <p style="color:rgba(253,250,246,0.65);">Le combo sacre — ta <em style="color:rgba(200,144,154,0.9);">Rev-ance</em> (dessin A4 canalise) + ta <em style="color:rgba(200,144,154,0.9);">Delivrance</em> (priere personnalisee). Deux canaux de lumiere reunis pour toi, en audio et version encadrable.</p>
+        <div class="offre-prix" style="color:rgba(232,213,160,1);">97 EUR</div>
+        <p style="font-size:0.7rem;color:rgba(253,250,246,0.35);margin-bottom:16px;">Livraison sous 7 jours</p>
+        <a href="https://www.paypal.com/ncp/payment/7MW2ZLSP4YEYC" style="display:inline-block;background:linear-gradient(135deg,#c9a96e,#e8d5a0);color:var(--deep);font-family:'Jost',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;padding:11px 24px;border-radius:50px;text-decoration:none;box-shadow:0 8px 30px rgba(201,169,110,0.3);">Commander ✦</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="revance-section" id="revance">
+  <div class="container">
+    <span class="section-label" style="color:rgba(200,144,154,0.9);">Le combo sacre</span>
+    <h2 class="section-title" style="color:rgba(232,213,200,1);">La Rev-ance <em style="color:rgba(200,144,154,1);">de Lumiere</em></h2>
+    <div class="thin-divider" style="background:rgba(176,112,128,0.6);"></div>
+    <p class="section-body" style="color:rgba(253,250,246,0.65);">Le combo le plus complet — une <strong style="color:rgba(232,213,200,0.9);">Rev-ance</strong> (dessin A4 canalise) et une <strong style="color:rgba(232,213,200,0.9);">Delivrance</strong> (priere personnalisee) recues en guidance divine specialement pour toi.</p>
+    <div class="revance-card">
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;color:rgba(232,213,200,1);margin-bottom:32px;line-height:1.3;">Deux canaux de lumiere<br>reunis rien que pour toi</h3>
+      <ul class="revance-includes">
+        <li>1 Rev-ance — dessin A4 unique canalise, formes, symboles et mots</li>
+        <li>1 Delivrance — priere personnalisee recue en guidance pour ton ame</li>
+        <li>Audio dans ma voix + version ecrite encadrable</li>
+        <li>Pour liberer, alleger et laisser entrer la lumiere</li>
+        <li>Livraison en PDF par email sous 7 jours</li>
+      </ul>
+      <div class="revance-price">97 EUR</div>
+      <p style="font-size:0.8rem;color:rgba(253,250,246,0.35);margin-bottom:40px;letter-spacing:0.08em;">TTC · Livraison digitale</p>
+      <a href="https://www.paypal.com/ncp/payment/ZS82SGSSQK4CC" class="btn-rose" style="font-size:0.8rem;padding:15px 36px;">Je commande ma Rev-ance de Lumiere ✦</a>
+      <p style="margin-top:20px;font-size:0.75rem;color:rgba(253,250,246,0.3);">Apres ta commande, La Fee Caro te contacte pour creer ta Rev-ance personnalisee</p>
+    </div>
+  </div>
+</section>
+
+<section id="bijoux" style="background:linear-gradient(135deg,#1a0e1e 0%,#0e0e2e 100%);padding:100px 24px;text-align:center;position:relative;overflow:hidden;">
+  <div class="container">
+    <span class="section-label">Boutique</span>
+    <h2 class="section-title" style="color:var(--gold-light);">Bijoux & <em>Pierres naturelles</em></h2>
+    <div class="thin-divider"></div>
+    <p class="section-body" style="color:rgba(253,250,246,0.6);">Des bracelets soins crees avec intention, personalises selon tes maux et tes besoins energetiques. Chaque pierre est choisie pour t'accompagner sur ton chemin.</p>
+    <div style="margin-top:48px;padding:40px;border:1px dashed rgba(201,169,110,0.3);border-radius:20px;max-width:500px;margin-left:auto;margin-right:auto;">
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.2rem;color:rgba(201,169,110,0.6);">✦ Boutique bientot disponible ✦</p>
+      <p style="font-size:0.8rem;color:rgba(253,250,246,0.35);margin-top:12px;">En attendant, contacte-moi directement pour ton bracelet personnalise</p>
+      <a href="mailto:lafeecaro@gmail.com" style="display:inline-block;margin-top:24px;color:var(--gold);font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;border-bottom:1px solid rgba(201,169,110,0.3);text-decoration:none;padding-bottom:2px;">Me contacter ✦</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div style="margin-bottom:20px;">
+    <p style="font-size:0.8rem;color:rgba(253,250,246,0.5);margin-bottom:10px;">Une question ? Contacte-moi</p>
+    <a href="mailto:lafeecaro@gmail.com" style="color:var(--gold);font-size:0.9rem;text-decoration:none;letter-spacing:0.1em;border-bottom:1px solid rgba(201,169,110,0.3);padding-bottom:2px;">lafeecaro@gmail.com</a>
+  </div>
+  <div style="margin-top:24px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
+    <a href="https://www.instagram.com/la_fee_caro/" target="_blank" style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(201,169,110,0.25);border-radius:50px;padding:10px 20px;text-decoration:none;color:rgba(253,250,246,0.7);font-family:'Jost',sans-serif;font-size:0.75rem;letter-spacing:0.1em;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      @la_fee_caro
+    </a>
+    <a href="https://www.tiktok.com/@lafee.caro" target="_blank" style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(160,144,216,0.25);border-radius:50px;padding:10px 20px;text-decoration:none;color:rgba(253,250,246,0.7);font-family:'Jost',sans-serif;font-size:0.75rem;letter-spacing:0.1em;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+      @lafee.caro
+    </a>
+    <a href="https://linktr.ee/lafeecaro" target="_blank" style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(200,144,154,0.25);border-radius:50px;padding:10px 20px;text-decoration:none;color:rgba(253,250,246,0.7);font-family:'Jost',sans-serif;font-size:0.75rem;letter-spacing:0.1em;">🌿 Linktree</a>
+  </div>
+  <div style="width:40px;height:1px;background:rgba(201,169,110,0.3);margin:20px auto;"></div>
+  <p>&copy; 2025 <span>La Fee Caro</span> · Praticienne certifiee Methode Vibraction® · Tous droits reserves</p>
+  <p style="margin-top:8px;">Accompagnement non substituable a un suivi medical ou psychologique</p>
+</footer>
+
+<script>
+window.addEventListener("load", function() {
+  var css = [
+    ".stars-canvas{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;}",
+    ".star{position:absolute;border-radius:50%;background:white;opacity:0;animation:twinkle var(--duration,3s) ease-in-out infinite;animation-delay:var(--delay,0s);}",
+    "@keyframes twinkle{0%,100%{opacity:0;transform:scale(0.5);}50%{opacity:var(--max-opacity,0.8);transform:scale(1);}}",
+    ".shooting-star{position:absolute;width:2px;height:2px;background:white;border-radius:50%;opacity:0;animation:shoot var(--shoot-duration,6s) ease-in infinite;animation-delay:var(--shoot-delay,0s);}",
+    ".shooting-star::after{content:'';position:absolute;top:50%;right:0;transform:translateY(-50%);width:80px;height:1px;background:linear-gradient(to left,rgba(255,255,255,0.7),transparent);}",
+    "@keyframes shoot{0%{opacity:0;transform:translate(0,0);}10%{opacity:1;}80%{opacity:0.3;}100%{opacity:0;transform:translate(-280px,140px);}}"
+  ].join("");
+  var styleEl = document.createElement('style');
+  styleEl.textContent = css;
+  document.head.appendChild(styleEl);
+
+  var darkSections = document.querySelectorAll('.hero,.method-section,.process-section,.offer-section,.cta-section,.petits-prix-section,.revance-section');
+
+  darkSections.forEach(function(section) {
+    var canvas = document.createElement('div');
+    canvas.className = 'stars-canvas';
+    section.insertBefore(canvas, section.firstChild);
+
+    // Petites étoiles blanches
+    for (var i = 0; i < 80; i++) {
+      var star = document.createElement('div');
+      star.className = 'star';
+      var size = Math.random() * 1.8 + 0.4;
+      star.style.cssText =
+        'left:' + (Math.random() * 100) + '%;' +
+        'top:' + (Math.random() * 100) + '%;' +
+        'width:' + size + 'px;height:' + size + 'px;' +
+        '--duration:' + (2 + Math.random() * 4) + 's;' +
+        '--delay:' + (Math.random() * 5) + 's;' +
+        '--max-opacity:' + (0.3 + Math.random() * 0.7) + ';' +
+        'box-shadow:0 0 ' + (size*2) + 'px ' + size + 'px rgba(180,170,255,0.4);';
+      canvas.appendChild(star);
+    }
+
+    // Étoiles dorées
+    for (var j = 0; j < 12; j++) {
+      var starG = document.createElement('div');
+      starG.className = 'star';
+      var sizeG = Math.random() * 2.5 + 1.5;
+      starG.style.cssText =
+        'left:' + (Math.random() * 100) + '%;' +
+        'top:' + (Math.random() * 100) + '%;' +
+        'width:' + sizeG + 'px;height:' + sizeG + 'px;' +
+        'background:#e8d5a0;' +
+        '--duration:' + (3 + Math.random() * 3) + 's;' +
+        '--delay:' + (Math.random() * 6) + 's;' +
+        '--max-opacity:' + (0.5 + Math.random() * 0.5) + ';' +
+        'box-shadow:0 0 ' + (sizeG*3) + 'px ' + (sizeG*1.5) + 'px rgba(201,169,110,0.5);';
+      canvas.appendChild(starG);
+    }
+
+    // Étoiles filantes (2 par section sombre)
+    for (var k = 0; k < 2; k++) {
+      var shooting = document.createElement('div');
+      shooting.className = 'shooting-star';
+      shooting.style.cssText =
+        'left:' + (60 + Math.random() * 30) + '%;' +
+        'top:' + (Math.random() * 35) + '%;' +
+        '--shoot-duration:' + (5 + Math.random() * 5) + 's;' +
+        '--shoot-delay:' + (k * 9 + Math.random() * 8) + 's;';
+      canvas.appendChild(shooting);
+    }
+  });
+
+  // Footer étoiles discrètes
+  var footer = document.querySelector('footer');
+  if (footer) {
+    var canvasF = document.createElement('div');
+    canvasF.className = 'stars-canvas';
+    footer.insertBefore(canvasF, footer.firstChild);
+    for (var f = 0; f < 20; f++) {
+      var starF = document.createElement('div');
+      starF.className = 'star';
+      var sizeF = Math.random() * 1.2 + 0.3;
+      starF.style.cssText =
+        'left:' + (Math.random() * 100) + '%;' +
+        'top:' + (Math.random() * 100) + '%;' +
+        'width:' + sizeF + 'px;height:' + sizeF + 'px;' +
+        '--duration:' + (3 + Math.random() * 5) + 's;' +
+        '--delay:' + (Math.random() * 6) + 's;' +
+        '--max-opacity:0.2;';
+      canvasF.appendChild(starF);
+    }
+  }
+});
+</script>
+</body>
+</html>
